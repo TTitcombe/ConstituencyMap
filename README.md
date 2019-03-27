@@ -16,7 +16,7 @@ _Note: Make sure you copy_ **all** _of the files, not just the shp file._
 
 ### What are constituencies?
 The United Kingdom of Great Britain and Northern Ireland operates elections under a first-past-the-post (fptp) system.
-The nation is split into hundreds of **constituencies** of **roughly** the same number of citizens. 
+The nation is split into hundreds of **constituencies** of roughly the same number of citizens. 
 
 In General Elections, the politician with the most votes in each constituency is elected as that constituency's representative to the House of Commons,
 as one of 650 Members of Parliament (MP).
