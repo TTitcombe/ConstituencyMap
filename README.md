@@ -4,7 +4,19 @@ such as number of voters, to see the constituency break down of the data.
 
 Formally known as choropleth maps, the plots are generated using geopandas and matplotlib.
 
-This repo also implements hex maps, in which each constituency is represented by an equally sized hexagon.
+This repo also implements hex maps, in which each constituency is represented by an equally sized hexagon. These maps
+can be invaluable for visualising elections in areas where constituencies are not equally sized. For example, in the UK, 
+Labour traditionally do well in metropolitan areas, which contain many small constituencies, whereas the Conservatives do well
+in the less densely populated shires. Looking at a more realistic map the UK could give the false impression that Convervatives
+were vastly outperforming Labour.
+
+## Maps
+The mapper classes are implemented in `map/`. Currently, only hex maps have been implemented. These maps are created using the fantastic tool by 
+[ODILeeds](https://odileeds.org/projects/hexmaps/constituencies/). There is a script in `utils/hex_to_csv` 
+which converts the "hexjson" files created by ODILeeds into csv files.
+
+This repo uses data from the [Revoke Article 50 petition](https://petition.parliament.uk/petitions/241584) in the 
+example files to demonstrate how to create choropleth maps.
 
 ## How to use
 Clone the repo and run `python -m examples.hexmap` in the root directory to see an example hexmap, using 
