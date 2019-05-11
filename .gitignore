@@ -104,3 +104,22 @@ venv.bak/
 .mypy_cache/
 
 .idea/
+
+
+# Data to ignore
+data/boundaries/uk_hex.hexjson
+data/map/
+!data/map/241584/241584_1553701502.csv
+
+# Plots
+plots/
+
+# Individual files
+map/hex_test.py
+map/video_maker.py
+map/hex_map.py
+map/real_map.py
+
+# Example files
+examples/geopandas_map.ipynb
+examples/geopandas_map_animated.ipynb
