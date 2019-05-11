@@ -2,10 +2,17 @@
 This project contains code to generate maps of the United Kingdom divided by constituency lines. One can supply constituency-level data, 
 such as number of voters, to see the constituency break down of the data.
 
-Formally known as choropleth maps, the plots are generated using geopandas.
+Formally known as choropleth maps, the plots are generated using geopandas and matplotlib.
+
+This repo also implements hex maps, in which each constituency is represented by an equally sized hexagon.
 
 ## How to use
-Clone the repo and run the python script or ipython script in the `map` directory.
+Clone the repo and run `python -m examples.hexmap` in the root directory to see an example hexmap, using 
+data taken from the Revoke Article 50 petition.
+This example file will show you how to use the **HexMap** class the create a choropleth map of the United Kingdom.
+
+
+*"Real" maps coming soon*
 
 The plots use the generalised parliamentary boundaries as of December 2015 by default (error downloading more recent data - update on the way). To use different geographic divisions,
 download the [*shapefile*](https://www.gislounge.com/what-is-a-shapefile/) you want and replace the dataset loaded in the example.
