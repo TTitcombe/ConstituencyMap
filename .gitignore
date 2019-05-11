@@ -113,6 +113,7 @@ data/map/
 
 # Plots
 plots/
+!plots/examples/
 
 # Individual files
 map/hex_test.py
