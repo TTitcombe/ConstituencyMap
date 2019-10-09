@@ -1,4 +1,6 @@
 # ConstituencyMap
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/TTitcombe/ConstituencyMap/master)
+
 This project contains code to generate maps of the United Kingdom divided by constituency lines. One can supply constituency-level data, 
 such as number of voters, to see the constituency break down of the data. The maps represent
 constituencies as equally-sized hexagons. This can be invaluable for visualising maps in a way
@@ -30,4 +32,4 @@ In General Elections, the politician with the most votes in each constituency is
 as one of 650 Members of Parliament (MP).
 
 [examples]: examples/
-[binder]: examples/
+[binder]: https://mybinder.org/v2/gh/TTitcombe/ConstituencyMap/master
