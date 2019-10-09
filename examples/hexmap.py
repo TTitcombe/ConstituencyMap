@@ -24,9 +24,10 @@ if __name__ == "__main__":
     v_min = 0.0
     v_max = 35.0
     title = "Signature as % of Electorate"
-    title_kwargs = {'fontsize': '20',
-                    'fontweight': '6'}
-    fig = hexmapper.draw_map(v_min=v_min, v_max=v_max, title=title, title_kwargs=title_kwargs)
+    title_kwargs = {"fontsize": "20", "fontweight": "6"}
+    fig = hexmapper.draw_map(
+        v_min=v_min, v_max=v_max, title=title, title_kwargs=title_kwargs
+    )
     plt.show()
 
     # Save the map

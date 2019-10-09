@@ -9,18 +9,21 @@ class AltairMap:
     """
     AltairMap creates an interactive map with altair.
     """
+
     def __init__(self):
         self._map_df = None
         self._value_column = None
         self._orientation = "odd-r"
-        self._colour_map = {"Conservative": "darkblue",
-                            "Labour": "red",
-                            "Lib Dem": "orange",
-                            "Green": "green",
-                            "Scottish National Party": "yellow",
-                            "Plaid Cymru": "black",
-                            "Sinn Fein": "darkgreen",
-                            "Speaker": "lightgray"}
+        self._colour_map = {
+            "Conservative": "darkblue",
+            "Labour": "red",
+            "Lib Dem": "orange",
+            "Green": "green",
+            "Scottish National Party": "yellow",
+            "Plaid Cymru": "black",
+            "Sinn Fein": "darkgreen",
+            "Speaker": "lightgray",
+        }
 
     def load_map(self, hexmap, is_path=True, value_column=None, **kwargs):
         """
@@ -35,8 +38,10 @@ class AltairMap:
         cols = hexmap.columns
         for required_col in ("q", "r", "Constituency"):
             if required_col not in cols:
-                raise RuntimeError("{} is not a column in the map dataframe. "
-                                   "Columns are {}.".format(required_col, cols))
+                raise RuntimeError(
+                    "{} is not a column in the map dataframe. "
+                    "Columns are {}.".format(required_col, cols)
+                )
         self._map_df = hexmap
 
         if value_column is not None:
@@ -60,27 +65,37 @@ class AltairMap:
         if is_path:
             data = pd.read_csv(data, **kwargs)
 
-        self._map_df = self._map_df.set_index(map_join).join(data.set_index(data_join)).reset_index()
+        self._map_df = (
+            self._map_df.set_index(map_join)
+            .join(data.set_index(data_join))
+            .reset_index()
+        )
 
     def draw_map(self):
         domain, range_ = self._get_colour_scaling()
-        colours_obj = alt.Color("Party:N",
-                                scale=alt.Scale(
-                                    domain=domain,
-                                    range=range_),
-                                legend=None)
+        colours_obj = alt.Color(
+            "Party:N", scale=alt.Scale(domain=domain, range=range_), legend=None
+        )
 
-        chart = alt.Chart(self._map_df).mark_circle().encode(
-            x='q',
-            y='r',
-            color=colours_obj,
-            size=alt.value(50),
-            tooltip=['Constituency:N'],
-        ).interactive()
+        chart = (
+            alt.Chart(self._map_df)
+            .mark_circle()
+            .encode(
+                x="q",
+                y="r",
+                color=colours_obj,
+                size=alt.value(50),
+                tooltip=["Constituency:N"],
+            )
+            .interactive()
+        )
 
-        legend = alt.Chart(self._map_df).mark_circle().encode(
-            y=alt.Y('Party:N', axis=alt.Axis(orient='right')),
-            color=colours_obj,
+        legend = (
+            alt.Chart(self._map_df)
+            .mark_circle()
+            .encode(
+                y=alt.Y("Party:N", axis=alt.Axis(orient="right")), color=colours_obj
+            )
         )
 
         return chart | legend

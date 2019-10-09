@@ -13,6 +13,7 @@ class HexMap:
     metropolitan areas can often distort how many people are
     voting a certain way.
     """
+
     def __init__(self):
         self._map_df = None
         self._map_fig = None
@@ -33,8 +34,10 @@ class HexMap:
         cols = hexmap.columns
         for required_col in ("q", "r", "Constituency"):
             if required_col not in cols:
-                raise RuntimeError("{} is not a column in the map dataframe. "
-                                   "Columns are {}.".format(required_col, cols))
+                raise RuntimeError(
+                    "{} is not a column in the map dataframe. "
+                    "Columns are {}.".format(required_col, cols)
+                )
         self._map_df = hexmap
 
         if value_column is not None:
@@ -58,10 +61,21 @@ class HexMap:
         if is_path:
             data = pd.read_csv(data, **kwargs)
 
-        self._map_df = self._map_df.set_index(map_join).join(data.set_index(data_join)).reset_index()
+        self._map_df = (
+            self._map_df.set_index(map_join)
+            .join(data.set_index(data_join))
+            .reset_index()
+        )
 
-    def draw_map(self, fig=None, _cmap="viridis", v_min=None, v_max=None,
-                 title=None, title_kwargs=None):
+    def draw_map(
+        self,
+        fig=None,
+        _cmap="viridis",
+        v_min=None,
+        v_max=None,
+        title=None,
+        title_kwargs=None,
+    ):
         """
         Create the map.
         :param fig: optional matplotlib fig object. If not provided, one is created.
@@ -102,15 +116,15 @@ class HexMap:
                 # if in an odd row, we need to shift right
                 q = q + 0.5
             r = y_diff * r
-            hexagon = RegularPolygon((q, r), numVertices=6, radius=d, edgecolor='k')
+            hexagon = RegularPolygon((q, r), numVertices=6, radius=d, edgecolor="k")
             patches.append(hexagon)
             colours.append(c)
 
             # Get plot limits
             if r < y_min:
-                y_min = r - 1.
+                y_min = r - 1.0
             if r > y_max:
-                y_max = r + 1.
+                y_max = r + 1.0
 
         x_min = self._map_df["q"].min() - 1.0
         x_max = self._map_df["q"].max() + 1.0
@@ -135,8 +149,7 @@ class HexMap:
         ax.set_ylim([y_min, y_max])
 
         if title is not None:
-            ax.set_title(title,
-                         fontdict=title_kwargs)
+            ax.set_title(title, fontdict=title_kwargs)
 
         self._map_fig = fig
         return fig
@@ -152,8 +165,9 @@ class HexMap:
                          Directory in which to save the figure
         """
         if self._map_fig is None:
-            raise RuntimeError("You need to draw the map before attempting "
-                               "to save the figure.")
+            raise RuntimeError(
+                "You need to draw the map before attempting " "to save the figure."
+            )
 
         # Update the object's save directory
         if save_dir is not None:
@@ -174,8 +188,7 @@ class HexMap:
             raise RuntimeError("Draw the map before adding an annotation to it.")
 
         ax = self._map_fig.axes[0]
-        ax.annotate(annotation,
-                    **kwargs)
+        ax.annotate(annotation, **kwargs)
 
         return self._map_fig
 
@@ -189,8 +202,10 @@ class HexMap:
             raise RuntimeError("You should load a map before setting the value column.")
 
         if _new_col not in self._map_df.columns:
-            raise KeyError("Value column {} is not in the map dataframe. "
-                           "Columns are {}.".format(_new_col, self._map_df.columns))
+            raise KeyError(
+                "Value column {} is not in the map dataframe. "
+                "Columns are {}.".format(_new_col, self._map_df.columns)
+            )
         else:
             self._value_column = _new_col
 
@@ -214,8 +229,10 @@ class HexMap:
         if new_orientation == "odd-r":
             self._orientation = new_orientation
         elif new_orientation in ("even-r", "odd-l", "even-l"):
-            raise NotImplementedError("{} has not yet been implemented"
-                                      .format(new_orientation))
+            raise NotImplementedError(
+                "{} has not yet been implemented".format(new_orientation)
+            )
         else:
-            raise KeyError("{} is not a recognised orientation."
-                           .format(new_orientation))
+            raise KeyError(
+                "{} is not a recognised orientation.".format(new_orientation)
+            )
